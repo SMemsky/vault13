@@ -24,7 +24,7 @@ func (c *Config) GetSection(name string) *Section {
 	idx := sort.Search(len(c.Sections), func(i int) bool{
 		return c.Sections[i].Name >= name
 	})
-	if idx >= len(c.Sections) {
+	if idx >= len(c.Sections) || c.Sections[idx].Name != name {
 		return nil
 	}
 	return c.Sections[idx]
@@ -57,7 +57,7 @@ func (s *Section) Get(name string) *Entry {
 	idx := sort.Search(len(s.Entries), func(i int) bool{
 		return s.Entries[i].Name >= name
 	})
-	if idx >= len(s.Entries) {
+	if idx >= len(s.Entries) || s.Entries[idx].Name != name {
 		return nil
 	}
 	return s.Entries[idx]
@@ -68,7 +68,7 @@ func (s *Section) Set(name string, entry *Entry) {
 	idx := sort.Search(len(s.Entries), func(i int) bool{
 		return s.Entries[i].Name >= name
 	})
-	if idx < len(s.Entries) {
+	if idx < len(s.Entries) && s.Entries[idx].Name == name {
 		s.Entries[idx] = entry
 	} else {
 		s.Entries = append(s.Entries, entry)
