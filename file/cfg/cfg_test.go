@@ -1,6 +1,7 @@
 package cfg
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -25,5 +26,9 @@ func TestBasic1(t *testing.T) {
 	config.Set("boi", "bar", String("100500"))
 	if value, err := config.Get("boi", "bar").Int() ; value != 100500 || err != nil {
 		t.Errorf("Get as int failed")
+	}
+
+	if config.Parse(strings.NewReader(test1)) != nil {
+		t.Errorf("Parse failed")
 	}
 }
