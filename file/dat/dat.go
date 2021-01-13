@@ -29,7 +29,7 @@ type Archive struct {
 }
 
 func Load(path string) (*Archive, error) {
-	f, err := os.Open(os.Args[1])
+	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
